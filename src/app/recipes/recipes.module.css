@@ -1,0 +1,197 @@
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-4);
+  padding-top: calc(var(--navbar-height) + var(--space-8));
+  min-height: 100vh;
+}
+
+.header {
+  margin-bottom: var(--space-8);
+  animation: fadeInUp 0.6s ease;
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: var(--text-3xl);
+  margin-bottom: var(--space-2);
+}
+
+.subtitle {
+  color: var(--color-text-secondary);
+}
+
+.filters {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-6);
+}
+
+.filterChip {
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.filterChip:hover {
+  background: var(--color-surface-hover);
+}
+
+.filterChipActive {
+  background: rgba(255, 107, 107, 0.2);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.recipeCard {
+  padding: var(--space-5);
+  transition: all var(--transition-base);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  cursor: pointer;
+  margin-bottom: var(--space-3);
+}
+
+.dishName {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  margin-bottom: var(--space-1);
+}
+
+.cuisineLabel {
+  font-size: var(--text-sm);
+  color: var(--color-secondary);
+  font-weight: 500;
+}
+
+.expandIcon {
+  color: var(--color-text-tertiary);
+  font-size: var(--text-sm);
+  transition: transform var(--transition-base);
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  align-items: center;
+}
+
+.expandedContent {
+  margin-top: var(--space-5);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border);
+  animation: fadeIn 0.3s ease;
+}
+
+.ingredientsSection,
+.instructionsSection,
+.chefNotes {
+  margin-bottom: var(--space-6);
+}
+
+.ingredientsSection h4,
+.instructionsSection h4,
+.chefNotes h4 {
+  font-size: var(--text-base);
+  font-weight: 600;
+  margin-bottom: var(--space-3);
+  color: var(--color-text-primary);
+}
+
+.ingredientsList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: var(--space-2);
+}
+
+.ingredientsList li {
+  font-size: var(--text-sm);
+  padding: var(--space-2);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+}
+
+.ingredientNote {
+  color: var(--color-text-tertiary);
+  font-style: italic;
+}
+
+.instructionsList {
+  list-style: decimal;
+  padding-left: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.instructionsList li {
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+}
+
+.tip {
+  margin-top: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--color-warning);
+  background: rgba(251, 191, 36, 0.1);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+}
+
+.chefNotes p {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+  font-style: italic;
+}
+
+.emptyState {
+  text-align: center;
+  padding: var(--space-16) var(--space-4);
+  animation: fadeInUp 0.6s ease;
+}
+
+.emptyIcon {
+  font-size: 4rem;
+  margin-bottom: var(--space-4);
+}
+
+.emptyState h2 {
+  margin-bottom: var(--space-4);
+}
+
+.emptyState p {
+  color: var(--color-text-secondary);
+  max-width: 400px;
+  margin: 0 auto var(--space-8);
+}
+
+.skeletonCard {
+  padding: var(--space-6);
+  min-height: 100px;
+}
+
+@media (max-width: 768px) {
+  .ingredientsList {
+    grid-template-columns: 1fr;
+  }
+}

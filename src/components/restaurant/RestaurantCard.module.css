@@ -1,0 +1,81 @@
+.card {
+  display: flex;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  text-decoration: none;
+  color: inherit;
+}
+
+.photo {
+  width: 120px;
+  height: 90px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg-tertiary);
+  font-size: 2rem;
+}
+
+.info {
+  flex: 1;
+  min-width: 0;
+}
+
+.name {
+  font-size: var(--text-base);
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.meta {
+  display: flex;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-2);
+}
+
+.rating {
+  color: var(--color-star);
+  font-weight: 600;
+}
+
+.price {
+  color: var(--color-success);
+  font-weight: 600;
+}
+
+.distance {
+  color: var(--color-text-tertiary);
+}
+
+.address {
+  font-size: var(--text-xs);
+  color: var(--color-text-tertiary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 480px) {
+  .photo {
+    width: 80px;
+    height: 70px;
+  }
+}

@@ -1,0 +1,19 @@
+.actions {
+  display: flex;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+  flex-wrap: wrap;
+  animation: fadeIn 0.4s ease;
+}
+
+.action {
+  flex: 1;
+  min-width: 100px;
+}
+
+@media (max-width: 480px) {
+  .actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}

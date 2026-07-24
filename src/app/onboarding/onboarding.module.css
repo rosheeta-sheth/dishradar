@@ -1,0 +1,406 @@
+.page {
+  min-height: 100vh;
+  background: var(--color-bg-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--navbar-height) var(--space-4) var(--space-8);
+}
+
+.header {
+  text-align: center;
+  padding: var(--space-8) 0 var(--space-5);
+}
+
+.logoRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.logoIcon {
+  color: var(--color-primary);
+}
+
+.logoText {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.tagline {
+  font-size: 1.125rem;
+  color: var(--color-text-secondary);
+  font-weight: 400;
+}
+
+/* Progress */
+.progress {
+  width: 100%;
+  max-width: 620px;
+  margin-bottom: var(--space-6);
+}
+
+.progressTrack {
+  height: 4px;
+  background: var(--color-border);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: var(--space-3);
+}
+
+.progressFill {
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+
+.stepLabels {
+  display: flex;
+  justify-content: space-between;
+}
+
+.stepLabel {
+  font-size: 0.75rem;
+  color: var(--color-text-tertiary);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.2s;
+}
+
+.stepLabelActive {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+/* Card */
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-10) var(--space-12);
+  width: 100%;
+  max-width: 620px;
+  box-shadow: var(--shadow-md);
+}
+
+/* Step */
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.stepIcon {
+  color: var(--color-primary);
+  display: flex;
+}
+
+.stepTitle {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.stepDesc {
+  font-size: 0.9375rem;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/* Slider */
+.sliderSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.spiceDisplay {
+  text-align: center;
+}
+
+.spiceValue {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  line-height: 1;
+}
+
+.spiceLabel {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  margin-top: var(--space-1);
+}
+
+.slider {
+  width: 100%;
+  accent-color: var(--color-primary);
+  height: 6px;
+  cursor: pointer;
+}
+
+.sliderEndLabels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8125rem;
+  color: var(--color-text-tertiary);
+}
+
+/* Chips */
+.chipGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.chip {
+  padding: var(--space-2) var(--space-4);
+  border: 1.5px solid var(--color-border);
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.chip:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.chipActive {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+}
+
+/* Input */
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.inputLabel {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.input {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: 0.9375rem;
+  color: var(--color-text-primary);
+  background: var(--color-bg-secondary);
+  transition: border-color 0.15s;
+  box-sizing: border-box;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.inputHint {
+  font-size: 0.75rem;
+  color: var(--color-text-tertiary);
+  margin: 0;
+}
+
+/* Texture grid */
+.textureGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--space-3);
+}
+
+.textureCard {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.textureName {
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: var(--color-text-primary);
+}
+
+.textureButtons {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.texBtn {
+  font-size: 1rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+  border-radius: 4px;
+  opacity: 0.4;
+  transition: opacity 0.15s, transform 0.1s;
+}
+
+.texBtn:hover {
+  opacity: 0.7;
+  transform: scale(1.1);
+}
+
+.texBtnActive {
+  opacity: 1;
+  transform: scale(1.15);
+}
+
+/* Flavor grid */
+.flavorGrid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.flavorCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+}
+
+.flavorLabel {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  min-width: 100px;
+}
+
+.flavorScale {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.flavorBtn {
+  padding: var(--space-1) var(--space-3);
+  border-radius: 999px;
+  border: 1.5px solid var(--color-border);
+  background: transparent;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.flavorBtn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.flavorBtnActive {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+}
+
+/* Comparative pairs */
+.pairsGrid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.pair {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.pairBtn {
+  flex: 1;
+  padding: var(--space-3) var(--space-4);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: transparent;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: center;
+}
+
+.pairBtn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.pairBtnActive {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+}
+
+.pairVs {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Nav */
+.navRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-border);
+}
+
+/* Skip */
+.skip {
+  margin-top: var(--space-4);
+  font-size: 0.875rem;
+  color: var(--color-text-tertiary);
+}
+
+.skipBtn {
+  background: none;
+  border: none;
+  font-size: 0.875rem;
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.skipBtn:hover {
+  color: var(--color-text-secondary);
+}
+
+@media (max-width: 640px) {
+  .card {
+    padding: var(--space-6) var(--space-5);
+  }
+}
