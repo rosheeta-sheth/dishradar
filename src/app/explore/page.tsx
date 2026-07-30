@@ -10,7 +10,7 @@ import FilterPanel from '@/components/search/FilterPanel';
 import RestaurantCard from '@/components/restaurant/RestaurantCard';
 import { DEFAULT_CENTER, SEARCH_RADIUS_DEFAULT, DEFAULT_ZOOM } from '@/lib/constants';
 import type { Restaurant, SearchFilters } from '@/lib/types';
-import { Map, List, SearchX, Search, MessageSquare } from 'lucide-react';
+import { Map, List, SearchX, Search, MessageSquare, Minus, Maximize2 } from 'lucide-react';
 import styles from './explore.module.css';
 
 function priceLevelToNumber(pl: unknown): number | null {
@@ -49,6 +49,7 @@ function ExploreContent() {
   const [searched, setSearched] = useState(false);
 
   const [chatOpen, setChatOpen] = useState(false);
+  const [chatMinimized, setChatMinimized] = useState(false);
   const [chatQuery, setChatQuery] = useState('');
   const [chatHistory, setChatHistory] = useState<{role: 'user' | 'ai', text: string}[]>([]);
 
@@ -293,10 +294,15 @@ function ExploreContent() {
 
       <div className={styles.chatContainer}>
         {chatOpen && (
-          <div className={styles.chatWindow}>
+          <div className={`${styles.chatWindow} ${chatMinimized ? styles.chatWindowMinimized : ''}`}>
             <div className={styles.chatHeader}>
               <span style={{fontWeight: 600}}>AI Concierge</span>
-              <button onClick={() => setChatOpen(false)} className={styles.chatCloseBtn}>×</button>
+              <div style={{display: 'flex', gap: '4px', alignItems: 'center'}}>
+                <button onClick={() => setChatMinimized(!chatMinimized)} className={styles.chatMinBtn} aria-label={chatMinimized ? 'Expand chat' : 'Minimize chat'}>
+                  {chatMinimized ? <Maximize2 size={16} /> : <Minus size={16} />}
+                </button>
+                <button onClick={() => { setChatOpen(false); setChatMinimized(false); }} className={styles.chatCloseBtn} aria-label="Close chat">×</button>
+              </div>
             </div>
             <div className={styles.chatBody}>
               {chatHistory.length === 0 ? (
