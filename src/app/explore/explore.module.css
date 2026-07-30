@@ -113,7 +113,7 @@
 
 .chatContainer {
   position: absolute;
-  bottom: var(--space-6);
+  bottom: var(--space-16);
   right: var(--space-6);
   z-index: var(--z-modal);
   display: flex;
