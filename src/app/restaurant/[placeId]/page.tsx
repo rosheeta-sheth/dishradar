@@ -283,7 +283,6 @@ function RestaurantContent({ placeId }: { placeId: string }) {
       </div>
     );
   }
-  const openStatus = getOpenStatus(restaurant.opening_hours?.open_now);
   return (
     <div className={styles.page}>
       {/* Hero */}
@@ -317,15 +316,6 @@ function RestaurantContent({ placeId }: { placeId: string }) {
                 </div>
               </div>
             )}
-            <div className={styles.infoItem}>
-              <span className={styles.infoIcon}><Clock size={20} color="var(--color-text-secondary)" /></span>
-              <div>
-                <div className={styles.infoLabel}>Status</div>
-                <span className={`badge ${openStatus.isOpen ? 'badge-success' : 'badge-primary'}`}>
-                  {openStatus.text}
-                </span>
-              </div>
-            </div>
             {restaurant.phone_number && (
               <div className={styles.infoItem}>
                 <span className={styles.infoIcon}><Phone size={20} color="var(--color-text-secondary)" /></span>
@@ -449,7 +439,7 @@ function RestaurantContent({ placeId }: { placeId: string }) {
                     cursor: 'pointer',
                     border: '1.5px solid var(--color-border)',
                     background: selectedCategories.includes(cat) ? 'var(--color-primary)' : 'transparent',
-                    color: selectedCategories.includes(cat) ? 'white' : 'var(--color-text-secondary)',
+                    color: selectedCategories.includes(cat) ? 'var(--color-text-inverse)' : 'var(--color-text-secondary)',
                     textTransform: 'capitalize',
                     fontWeight: 600,
                     padding: 'var(--space-2) var(--space-4)',
