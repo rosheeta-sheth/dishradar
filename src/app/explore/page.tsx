@@ -296,7 +296,7 @@ function ExploreContent() {
         {chatOpen && (
           <div className={`${styles.chatWindow} ${chatMinimized ? styles.chatWindowMinimized : ''}`}>
             <div className={styles.chatHeader}>
-              <span style={{fontWeight: 600}}>AI Concierge</span>
+              <span style={{fontWeight: 600, color: 'white'}}>AI Concierge</span>
               <div style={{display: 'flex', gap: '4px', alignItems: 'center'}}>
                 <button onClick={() => setChatMinimized(!chatMinimized)} className={styles.chatMinBtn} aria-label={chatMinimized ? 'Expand chat' : 'Minimize chat'}>
                   {chatMinimized ? <Maximize2 size={16} /> : <Minus size={16} />}

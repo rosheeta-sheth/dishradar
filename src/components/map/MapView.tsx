@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { Map, AdvancedMarker, Pin, useMap } from '@vis.gl/react-google-maps';
 import { GMP_ATTRIBUTION_ID } from '@/lib/constants';
 import type { Restaurant } from '@/lib/types';
+import { simulateBusyness } from '@/lib/utils';
 import styles from './MapView.module.css';
 
 interface MapViewProps {
@@ -16,8 +17,8 @@ interface MapViewProps {
 
 function getPinColor(rating: number | null): { bg: string; border: string } {
   if (!rating) return { bg: '#94A3B8', border: '#64748B' };
-  if (rating >= 4.5) return { bg: '#4ADE80', border: '#22C55E' };
-  if (rating >= 4.0) return { bg: '#FF6B6B', border: '#E85555' };
+  if (rating >= 4.5) return { bg: '#8B5CF6', border: '#7C3AED' }; // Purple for high rating if not busy/quiet
+  if (rating >= 4.0) return { bg: '#3B82F6', border: '#2563EB' }; // Blue for good rating
   return { bg: '#94A3B8', border: '#64748B' };
 }
 
@@ -42,7 +43,21 @@ export default function MapView({ restaurants, selectedId, onSelectRestaurant, c
         internalUsageAttributionIds={[GMP_ATTRIBUTION_ID]}
       >
         {restaurants.map((r) => {
-          const { bg, border } = getPinColor(r.rating);
+          const busyness = simulateBusyness(r.place_id);
+          let bg, border, className;
+          
+          if (busyness > 75) {
+            bg = '#EF4444'; border = '#B91C1C';
+            className = styles.busyPin;
+          } else if (busyness < 30) {
+            bg = '#22C55E'; border = '#15803D';
+            className = styles.quietPin;
+          } else {
+            const colors = getPinColor(r.rating);
+            bg = colors.bg; border = colors.border;
+            className = '';
+          }
+
           const isSelected = r.place_id === selectedId;
 
           return (
@@ -51,6 +66,7 @@ export default function MapView({ restaurants, selectedId, onSelectRestaurant, c
               position={{ lat: r.lat, lng: r.lng }}
               onClick={() => onSelectRestaurant(r)}
               zIndex={isSelected ? 10 : 1}
+              className={className}
             >
               <Pin
                 background={isSelected ? '#FFB347' : bg}

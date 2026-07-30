@@ -121,6 +121,52 @@
   --sidebar-width: 320px;
 }
 
+[data-theme="dark"] {
+  /* Colors — Dark mode */
+  --color-bg-primary: #0A0A0A;
+  --color-bg-secondary: #171717;
+  --color-bg-tertiary: #262626;
+  --color-bg-elevated: #1F2937; /* slate-800 */
+
+  --color-surface: rgba(10, 10, 10, 0.8);
+  --color-surface-hover: rgba(38, 38, 38, 0.9);
+  --color-surface-active: rgba(64, 64, 64, 0.9);
+
+  --color-border: #262626;
+  --color-border-subtle: #171717;
+  --color-border-strong: #404040;
+
+  --color-text-primary: #F8FAFC; /* slate-50 */
+  --color-text-secondary: #94A3B8; /* slate-400 */
+  --color-text-tertiary: #64748B; /* slate-500 */
+  --color-text-inverse: #0A0A0A;
+
+  /* Accent */
+  --color-primary: #F8FAFC;
+  --color-primary-light: #F1F5F9;
+  --color-primary-dark: #E2E8F0;
+  --color-gradient-primary: #F8FAFC;
+  --color-gradient-primary-hover: #E2E8F0;
+
+  /* Secondary */
+  --color-secondary: #334155;
+  --color-secondary-light: #475569;
+  --color-secondary-dark: #1E293B;
+  --color-gradient-secondary: #334155;
+
+  /* Semantic */
+  --color-success: #4ADE80;
+  --color-warning: #FBBF24;
+  --color-error: #F87171;
+  --color-info: #60A5FA;
+
+  /* Semantic Backgrounds (for badges) */
+  --color-success-bg: rgba(74, 222, 128, 0.2);
+  --color-warning-bg: rgba(251, 191, 36, 0.2);
+  --color-error-bg: rgba(248, 113, 113, 0.2);
+  --color-info-bg: rgba(96, 165, 250, 0.2);
+}
+
 /* ===== RESET & BASE ===== */
 *,
 *::before,

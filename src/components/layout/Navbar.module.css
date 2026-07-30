@@ -142,6 +142,24 @@
   transform: rotate(-45deg) translate(5px, -5px);
 }
 
+.themeToggle {
+  background: transparent;
+  border: none;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.themeToggle:hover {
+  background: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+}
+
 @media (max-width: 768px) {
   .burger {
     display: flex;

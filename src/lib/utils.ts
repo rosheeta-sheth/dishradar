@@ -122,3 +122,30 @@ export function isCacheFresh(lastRefreshed: string | Date, maxAgeMs: number): bo
 export function generateId(): string {
   return Math.random().toString(36).substring(2) + Date.now().toString(36);
 }
+
+/**
+ * Simulate a real-time busyness score (0-100) based on placeId and current hour.
+ */
+export function simulateBusyness(placeId: string): number {
+  if (!placeId) return 0;
+  
+  let hash = 0;
+  for (let i = 0; i < placeId.length; i++) {
+    hash = ((hash << 5) - hash) + placeId.charCodeAt(i);
+    hash |= 0; // Convert to 32bit integer
+  }
+  
+  const currentHour = new Date().getHours();
+  // Create a pseudo-random value between 0 and 100 that changes every hour
+  const seed = Math.abs(hash * (currentHour + 1));
+  
+  // Base busyness curve (peaks around lunch 12-14 and dinner 18-20)
+  let baseBusyness = 30;
+  if (currentHour >= 11 && currentHour <= 14) baseBusyness = 70;
+  if (currentHour >= 17 && currentHour <= 21) baseBusyness = 80;
+  
+  // Add variation based on the placeId hash
+  const variation = (seed % 40) - 20; // -20 to +20
+  
+  return Math.max(0, Math.min(100, baseBusyness + variation));
+}

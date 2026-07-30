@@ -41,9 +41,22 @@ export default function SummaryCard({ restaurant, userLocation, onClose }: Summa
           {restaurant.formatted_address && (
             <p className={styles.address}>{restaurant.formatted_address}</p>
           )}
-          <Link href={`/restaurant/${restaurant.place_id}`} className="btn btn-primary btn-sm" style={{ marginTop: 'var(--space-3)' }}>
-            View Details →
-          </Link>
+          <div className={styles.actions}>
+            <Link href={`/restaurant/${restaurant.place_id}`} className="btn btn-primary btn-sm" style={{ marginTop: 'var(--space-3)' }}>
+              View Details →
+            </Link>
+            <div className={styles.externalLinks} style={{ display: 'flex', gap: '8px', marginTop: '8px', flexWrap: 'wrap' }}>
+              <a href={`https://www.ubereats.com/search?q=${encodeURIComponent(restaurant.name)}`} target="_blank" rel="noopener noreferrer" className={styles.externalLink}>
+                UberEats ↗
+              </a>
+              <a href={`https://www.doordash.com/search/store/${encodeURIComponent(restaurant.name)}/`} target="_blank" rel="noopener noreferrer" className={styles.externalLink}>
+                DoorDash ↗
+              </a>
+              <a href={`https://www.opentable.com/s?term=${encodeURIComponent(restaurant.name)}`} target="_blank" rel="noopener noreferrer" className={styles.externalLink}>
+                OpenTable ↗
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>

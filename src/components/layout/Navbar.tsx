@@ -5,11 +5,13 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import type { User } from '@supabase/supabase-js';
-import { UtensilsCrossed } from 'lucide-react';
+import { UtensilsCrossed, Sun, Moon } from 'lucide-react';
+import { useTheme } from '@/components/providers/ThemeProvider';
 import styles from './Navbar.module.css';
 
 export default function Navbar() {
   const [user, setUser] = useState<User | null>(null);
+  const { theme, toggleTheme } = useTheme();
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
@@ -58,6 +60,9 @@ export default function Navbar() {
           <Link href="/saved" className={`${styles.link} ${pathname === '/saved' ? styles.linkActive : ''}`}>
             Saved Places
           </Link>
+          <button onClick={toggleTheme} className={styles.themeToggle} aria-label="Toggle theme">
+            {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+          </button>
           {user ? (
             <div className={styles.userArea}>
               <Link href="/profile" className={styles.avatar}>

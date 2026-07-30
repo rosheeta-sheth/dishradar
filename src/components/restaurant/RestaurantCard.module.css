@@ -63,6 +63,26 @@
 
 .distance {
   color: var(--color-text-tertiary);
+  font-size: var(--text-sm);
+}
+
+.externalLink {
+  display: inline-block;
+  padding: 4px 10px;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.externalLink:hover {
+  background: var(--color-bg-tertiary);
+  color: var(--color-text-primary);
+  border-color: var(--color-border-strong);
 }
 
 .address {

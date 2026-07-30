@@ -17,7 +17,7 @@ export default function RestaurantCard({ restaurant, userLocation }: RestaurantC
     : null;
 
   return (
-    <Link href={`/restaurant/${restaurant.place_id}`} className={`card ${styles.card}`}>
+    <div onClick={() => window.location.href = `/restaurant/${restaurant.place_id}`} className={`card ${styles.card}`} style={{ cursor: 'pointer' }}>
       <div className={styles.photo}>
         {restaurant.photo_urls?.[0] ? (
           <img src={restaurant.photo_urls[0]} alt={restaurant.name} />
@@ -44,7 +44,18 @@ export default function RestaurantCard({ restaurant, userLocation }: RestaurantC
         {restaurant.formatted_address && (
           <p className={styles.address}>{restaurant.formatted_address}</p>
         )}
+        <div style={{ display: 'flex', gap: '8px', marginTop: '12px', flexWrap: 'wrap' }}>
+          <a href={`https://www.ubereats.com/search?q=${encodeURIComponent(restaurant.name)}`} target="_blank" rel="noopener noreferrer" className={styles.externalLink} onClick={(e) => e.stopPropagation()}>
+            UberEats ↗
+          </a>
+          <a href={`https://www.doordash.com/search/store/${encodeURIComponent(restaurant.name)}/`} target="_blank" rel="noopener noreferrer" className={styles.externalLink} onClick={(e) => e.stopPropagation()}>
+            DoorDash ↗
+          </a>
+          <a href={`https://www.opentable.com/s?term=${encodeURIComponent(restaurant.name)}`} target="_blank" rel="noopener noreferrer" className={styles.externalLink} onClick={(e) => e.stopPropagation()}>
+            OpenTable ↗
+          </a>
+        </div>
       </div>
-    </Link>
+    </div>
   );
 }
