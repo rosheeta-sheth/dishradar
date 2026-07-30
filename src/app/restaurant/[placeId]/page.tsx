@@ -7,9 +7,9 @@ import PhotoGallery from '@/components/restaurant/PhotoGallery';
 import RestaurantCard from '@/components/restaurant/RestaurantCard';
 import RecipeModal from '@/components/recipe/RecipeModal';
 import RecommendationCard, { RatingModal } from '@/components/recommendation/RecommendationCard';
-import { formatPriceLevel, getOpenStatus } from '@/lib/utils';
+import { formatPriceLevel } from '@/lib/utils';
 import type { Restaurant, DishInsight, DishRecommendation } from '@/lib/types';
-import { Utensils, MapPin, Clock, Phone, ChefHat, Camera, Map, Sparkles } from 'lucide-react';
+import { Utensils, MapPin, Phone, ChefHat, Camera, Map, Sparkles } from 'lucide-react';
 import styles from './restaurant.module.css';
 function priceLevelToNumber(pl: unknown): number | null {
   const map: Record<string, number> = {
@@ -244,20 +244,6 @@ function RestaurantContent({ placeId }: { placeId: string }) {
     } catch { /* ignore */ }
   }
 
-  async function logVisit(dishNames: string[]) {
-    try {
-      await fetch('/api/order-history', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          place_id: placeId,
-          restaurant_name: restaurant?.name || '',
-          restaurant_address: restaurant?.formatted_address,
-          dishes_ordered: dishNames,
-        }),
-      });
-    } catch { /* ignore */ }
-  }
   if (loading) {
     return (
       <div className={styles.page}>

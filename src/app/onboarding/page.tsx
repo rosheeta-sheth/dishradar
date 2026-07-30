@@ -81,7 +81,7 @@ export default function OnboardingPage() {
   const [step, setStep] = useState(0);
   const [currentPairIndex, setCurrentPairIndex] = useState(0);
   const [submitting, setSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState<string | null>(null);
+
   const [blurb, setBlurb] = useState<string | null>(null);
   const [state, setState] = useState<QuizState>({
     spice_level: 5,

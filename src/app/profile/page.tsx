@@ -14,15 +14,16 @@ import styles from './profile.module.css';
 function HeatmapLayer({ data }: { data: { lat: number; lng: number }[] }) {
   const map = useMap();
   const visualization = useMapsLibrary('visualization');
-  const [heatmap, setHeatmap] = useState<google.maps.visualization.HeatmapLayer | null>(null);
+
 
   useEffect(() => {
     if (!map || !visualization) return;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const newHeatmap = new (visualization.HeatmapLayer as any)({
       data: data.map(pt => new google.maps.LatLng(pt.lat, pt.lng)),
       map,
     });
-    setHeatmap(newHeatmap);
+
     return () => newHeatmap.setMap(null);
   }, [map, visualization, data]);
 
@@ -33,7 +34,7 @@ type Tab = 'preferences' | 'history' | 'favorites' | 'ratings';
 
 export default function ProfilePage() {
   const [profile, setProfile] = useState<UserProfile | null>(null);
-  const [userPreferences, setUserPreferences] = useState<any>(null);
+  const [userPreferences, setUserPreferences] = useState<unknown>(null);
   const [savedItems, setSavedItems] = useState<SavedItem[]>([]);
   const [ratings, setRatings] = useState<DishRating[]>([]);
   const [orderHistory, setOrderHistory] = useState<OrderHistory[]>([]);

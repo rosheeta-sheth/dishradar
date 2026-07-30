@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import type { Recipe } from '@/lib/types';
+
 import { ChefHat, BookX } from 'lucide-react';
 import SavedRecipeCard, { SavedRecipeItem } from './SavedRecipeCard';
 import styles from './recipes.module.css';
@@ -107,7 +107,7 @@ export default function RecipesPage() {
       {filtered.length > 0 ? (
         <div className={`${styles.grid} stagger-children`}>
           {filtered.map((item) => {
-            const recipe = item.recipe_data;
+
             const isExpanded = expandedId === item.id;
 
             return (

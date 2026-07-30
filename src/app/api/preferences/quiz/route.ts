@@ -94,7 +94,7 @@ export async function POST(req: Request) {
     if (profileError) console.warn('Could not mark quiz completed:', profileError.message);
 
     return NextResponse.json({ success: true, blurb: personalityBlurb });
-  } catch (err: any) {
+  } catch (err) {
     console.error('[Quiz POST Error]:', err);
     return NextResponse.json({ error: err?.message || String(err) }, { status: 500 });
   }

@@ -45,7 +45,6 @@ export default function SummaryCard({ restaurant, userLocation, onClose }: Summa
             <Link href={`/restaurant/${restaurant.place_id}`} className="btn btn-primary btn-sm" style={{ marginTop: 'var(--space-3)' }}>
               View Details →
             </Link>
-            </div>
           </div>
         </div>
       </div>

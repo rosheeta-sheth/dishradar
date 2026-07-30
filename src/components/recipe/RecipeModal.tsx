@@ -46,13 +46,14 @@ export default function RecipeModal({
   useEffect(() => {
     let interval: NodeJS.Timeout;
     if (loading) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setLoadingStep(0);
       interval = setInterval(() => {
         setLoadingStep(prev => Math.min(prev + 1, loadingMessages.length - 1));
       }, 2500);
     }
     return () => clearInterval(interval);
-  }, [loading]);
+  }, [loading, loadingMessages.length]);
 
   useEffect(() => {
     if (isOpen && dishName && !hasFetched.current) {
@@ -64,6 +65,7 @@ export default function RecipeModal({
   useEffect(() => {
     if (!isOpen) {
       hasFetched.current = false;
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setRecipe(null);
       setError('');
       setTargetServings(0);
@@ -73,6 +75,7 @@ export default function RecipeModal({
 
   useEffect(() => {
     if (recipe && targetServings === 0) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setTargetServings(recipe.servings);
     }
   }, [recipe, targetServings]);

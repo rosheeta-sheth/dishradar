@@ -30,7 +30,9 @@ export default function SavedRecipeCard({ item, isExpanded, onToggleExpand, onDe
   // Reset scaling if closed
   useEffect(() => {
     if (!isExpanded) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setTargetServings(recipe.servings || 1);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setUnitSystem('us');
     }
   }, [isExpanded, recipe.servings]);

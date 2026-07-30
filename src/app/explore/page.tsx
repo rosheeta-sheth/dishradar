@@ -306,7 +306,7 @@ function ExploreContent() {
             </div>
             <div className={styles.chatBody}>
               {chatHistory.length === 0 ? (
-                <p className={styles.chatPlaceholder}>Ask me to find something! (e.g., "fancy Italian")</p>
+                <p className={styles.chatPlaceholder}>Ask me to find something! (e.g., &quot;fancy Italian&quot;)</p>
               ) : (
                 chatHistory.map((msg, i) => (
                   <div key={i} className={msg.role === 'user' ? styles.chatMsgUser : styles.chatMsgAi}>
