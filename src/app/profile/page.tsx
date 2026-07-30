@@ -34,7 +34,8 @@ type Tab = 'preferences' | 'history' | 'favorites' | 'ratings';
 
 export default function ProfilePage() {
   const [profile, setProfile] = useState<UserProfile | null>(null);
-  const [userPreferences, setUserPreferences] = useState<unknown>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [userPreferences, setUserPreferences] = useState<any>(null);
   const [savedItems, setSavedItems] = useState<SavedItem[]>([]);
   const [ratings, setRatings] = useState<DishRating[]>([]);
   const [orderHistory, setOrderHistory] = useState<OrderHistory[]>([]);
