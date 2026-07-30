@@ -5,7 +5,7 @@
   right: 0;
   height: var(--navbar-height);
   z-index: var(--z-sticky);
-  background: rgba(255, 255, 255, 0.85);
+  background: var(--color-surface);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--color-border-subtle);
@@ -13,7 +13,7 @@
 }
 
 .scrolled {
-  background: rgba(255, 255, 255, 0.98);
+  background: var(--color-surface-active);
   border-bottom-color: var(--color-border);
   box-shadow: var(--shadow-sm);
 }
