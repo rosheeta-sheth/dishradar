@@ -96,6 +96,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ success: true, blurb: personalityBlurb });
   } catch (err) {
     console.error('[Quiz POST Error]:', err);
-    return NextResponse.json({ error: err?.message || String(err) }, { status: 500 });
+    return NextResponse.json({ error: (err as Error)?.message || String(err) }, { status: 500 });
   }
 }
