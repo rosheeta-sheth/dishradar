@@ -437,7 +437,7 @@ export default function OnboardingPage() {
               >
                 {submitting ? 'Saving...' : 'Start Exploring'} <ChefHat size={16} />
               </button>
-              {submitError && <span style={{ color: 'var(--color-error)', fontSize: '0.875rem' }}>{submitError}</span>}
+
             </div>
           )}
         </div>
