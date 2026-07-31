@@ -310,7 +310,7 @@ function ExploreContent() {
           {chatOpen && (
             <div className={`${styles.chatWindow} ${chatMinimized ? styles.chatWindowMinimized : ''}`}>
               <div className={`${styles.chatHeader} chat-drag-handle`} style={{ cursor: 'grab' }}>
-                <span style={{fontWeight: 600, color: 'white'}}>AI Concierge</span>
+                <span style={{fontWeight: 600}}>AI Concierge</span>
               <div style={{display: 'flex', gap: '4px', alignItems: 'center'}}>
                 <button onClick={() => setChatMinimized(!chatMinimized)} className={styles.chatMinBtn} aria-label={chatMinimized ? 'Expand chat' : 'Minimize chat'}>
                   {chatMinimized ? <Maximize2 size={16} /> : <Minus size={16} />}
@@ -342,7 +342,7 @@ function ExploreContent() {
           </div>
         )}
         <button className={`${styles.chatFab} chat-drag-handle`} style={{ cursor: 'grab' }} onClick={() => setChatOpen(!chatOpen)}>
-          <MessageSquare size={24} color="white" />
+          <MessageSquare size={24} color="currentColor" />
         </button>
       </div>
     </Draggable>
