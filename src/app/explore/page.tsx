@@ -196,9 +196,20 @@ function ExploreContent() {
     try {
       const res = await geocoder.geocode({ address: cityQuery });
       if (res.results.length > 0) {
-        const loc = res.results[0].geometry.location;
+        const result = res.results[0];
+        const isGeographic = result.types.some(t => 
+          ['locality', 'sublocality', 'administrative_area_level_1', 'administrative_area_level_2', 'country', 'postal_code', 'neighborhood', 'political', 'colloquial_area'].includes(t)
+        );
+
+        if (!isGeographic) {
+          setError("Please enter a valid city, neighborhood, or zip code.");
+          return;
+        }
+
+        const loc = result.geometry.location;
         const newCenter = { lat: loc.lat(), lng: loc.lng() };
         setCenter(newCenter);
+        setError(null);
         // Map will automatically pan due to the useEffect watching center
         handleSearch(newCenter); 
       } else {
