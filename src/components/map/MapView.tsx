@@ -43,12 +43,8 @@ export default function MapView({ restaurants, selectedId, onSelectRestaurant, c
           <span>Quiet</span>
         </div>
         <div className={styles.legendItem}>
-          <span className={styles.legendColor} style={{ background: '#8B5CF6', border: '1px solid #7C3AED' }}></span>
-          <span>Exceptional (4.5+ ★)</span>
-        </div>
-        <div className={styles.legendItem}>
-          <span className={styles.legendColor} style={{ background: '#3B82F6', border: '1px solid #2563EB' }}></span>
-          <span>Great (4.0+ ★)</span>
+          <span className={styles.legendColor} style={{ background: '#9CA3AF', border: '1px solid #6B7280' }}></span>
+          <span>Average</span>
         </div>
       </div>
       <Map
@@ -71,8 +67,7 @@ export default function MapView({ restaurants, selectedId, onSelectRestaurant, c
             bg = '#22C55E'; border = '#15803D';
             className = styles.quietPin;
           } else {
-            const colors = getPinColor(r.rating);
-            bg = colors.bg; border = colors.border;
+            bg = '#9CA3AF'; border = '#6B7280';
             className = '';
           }
 

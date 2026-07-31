@@ -306,7 +306,7 @@ function ExploreContent() {
         )}
       </div>
 
-      <Draggable nodeRef={chatDraggableRef} handle=".chat-drag-handle" bounds="body">
+      <Draggable nodeRef={chatDraggableRef} handle=".chat-drag-handle">
         <div ref={chatDraggableRef} className={styles.chatContainer}>
           {chatOpen && (
             <div className={`${styles.chatWindow} ${chatMinimized ? styles.chatWindowMinimized : ''}`}>
