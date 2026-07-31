@@ -11,6 +11,7 @@ import RestaurantCard from '@/components/restaurant/RestaurantCard';
 import { DEFAULT_CENTER, SEARCH_RADIUS_DEFAULT, DEFAULT_ZOOM } from '@/lib/constants';
 import type { Restaurant, SearchFilters } from '@/lib/types';
 import { Map, List, SearchX, Search, MessageSquare, Minus, Maximize2 } from 'lucide-react';
+import Draggable from 'react-draggable';
 import styles from './explore.module.css';
 
 function priceLevelToNumber(pl: unknown): number | null {
@@ -304,11 +305,12 @@ function ExploreContent() {
         )}
       </div>
 
-      <div className={styles.chatContainer}>
-        {chatOpen && (
-          <div className={`${styles.chatWindow} ${chatMinimized ? styles.chatWindowMinimized : ''}`}>
-            <div className={styles.chatHeader}>
-              <span style={{fontWeight: 600, color: 'white'}}>AI Concierge</span>
+      <Draggable handle=".chat-drag-handle" bounds="body">
+        <div className={styles.chatContainer}>
+          {chatOpen && (
+            <div className={`${styles.chatWindow} ${chatMinimized ? styles.chatWindowMinimized : ''}`}>
+              <div className={`${styles.chatHeader} chat-drag-handle`} style={{ cursor: 'grab' }}>
+                <span style={{fontWeight: 600, color: 'white'}}>AI Concierge</span>
               <div style={{display: 'flex', gap: '4px', alignItems: 'center'}}>
                 <button onClick={() => setChatMinimized(!chatMinimized)} className={styles.chatMinBtn} aria-label={chatMinimized ? 'Expand chat' : 'Minimize chat'}>
                   {chatMinimized ? <Maximize2 size={16} /> : <Minus size={16} />}
@@ -339,10 +341,11 @@ function ExploreContent() {
             </form>
           </div>
         )}
-        <button className={styles.chatFab} onClick={() => setChatOpen(!chatOpen)}>
+        <button className={`${styles.chatFab} chat-drag-handle`} style={{ cursor: 'grab' }} onClick={() => setChatOpen(!chatOpen)}>
           <MessageSquare size={24} color="white" />
         </button>
       </div>
+    </Draggable>
     </div>
   );
 }
