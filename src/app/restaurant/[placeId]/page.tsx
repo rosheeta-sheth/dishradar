@@ -9,7 +9,7 @@ import RecipeModal from '@/components/recipe/RecipeModal';
 import RecommendationCard, { RatingModal } from '@/components/recommendation/RecommendationCard';
 import { formatPriceLevel } from '@/lib/utils';
 import type { Restaurant, DishInsight, DishRecommendation } from '@/lib/types';
-import { Utensils, MapPin, Phone, ChefHat, Camera, Map, Sparkles } from 'lucide-react';
+import { Utensils, MapPin, Phone, ChefHat, Camera, Map, Sparkles, Clock } from 'lucide-react';
 import styles from './restaurant.module.css';
 function priceLevelToNumber(pl: unknown): number | null {
   const map: Record<string, number> = {
@@ -72,6 +72,24 @@ function RestaurantContent({ placeId }: { placeId: string }) {
       const photoUrls = place.photos?.slice(0, 6).map((p) =>
         p.getURI({ maxHeight: 600, maxWidth: 800 })
       ) || [];
+      // Fetch live open status using PlacesService
+      let liveOpenNow: boolean | undefined = undefined;
+      try {
+        const dummyElement = document.createElement('div');
+        const service = new google.maps.places.PlacesService(dummyElement);
+        liveOpenNow = await new Promise((resolve) => {
+          service.getDetails({ placeId, fields: ['opening_hours'] }, (result, status) => {
+            if (status === google.maps.places.PlacesServiceStatus.OK && result?.opening_hours) {
+              resolve(result.opening_hours.isOpen ? result.opening_hours.isOpen() : undefined);
+            } else {
+              resolve(undefined);
+            }
+          });
+        });
+      } catch (err) {
+        console.warn('Could not fetch live open status:', err);
+      }
+
       const r: Restaurant = {
         place_id: placeId,
         name: place.displayName || '',
@@ -85,7 +103,7 @@ function RestaurantContent({ placeId }: { placeId: string }) {
         website_url: place.websiteURI || null,
         photo_urls: photoUrls,
         opening_hours: place.regularOpeningHours ? {
-          open_now: place.regularOpeningHours.periods ? true : undefined,
+          open_now: liveOpenNow,
           weekday_text: place.regularOpeningHours.weekdayDescriptions || undefined,
         } : null,
         editorial_summary: place.editorialSummary || null,
@@ -299,6 +317,17 @@ function RestaurantContent({ placeId }: { placeId: string }) {
                 <div>
                   <div className={styles.infoLabel}>Address</div>
                   <div>{restaurant.formatted_address}</div>
+                </div>
+              </div>
+            )}
+            {restaurant.opening_hours && restaurant.opening_hours.open_now !== undefined && (
+              <div className={styles.infoItem}>
+                <span className={styles.infoIcon}><Clock size={20} color={restaurant.opening_hours.open_now ? "var(--color-success)" : "var(--color-error)"} /></span>
+                <div>
+                  <div className={styles.infoLabel}>Status</div>
+                  <div className={styles.infoValue} style={{ color: restaurant.opening_hours.open_now ? "var(--color-success)" : "var(--color-error)", fontWeight: 500 }}>
+                    {restaurant.opening_hours.open_now ? 'Open now' : 'Closed'}
+                  </div>
                 </div>
               </div>
             )}

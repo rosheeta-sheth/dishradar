@@ -46,6 +46,7 @@ function ExploreContent() {
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
   const [center, setCenter] = useState(DEFAULT_CENTER);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [searched, setSearched] = useState(false);
 
   const [chatOpen, setChatOpen] = useState(false);
@@ -89,7 +90,11 @@ function ExploreContent() {
   }, [query, filters, router]);
 
   const handleSearch = useCallback(async () => {
-    if (!placesLib) return;
+    if (!placesLib) {
+      setError('Google Maps is still loading or API key is missing. Please check your configuration.');
+      return;
+    }
+    setError(null);
 
     let textQuery = query.trim();
     if (filters.dietary) {
@@ -175,8 +180,9 @@ function ExploreContent() {
           body: JSON.stringify({ restaurants: filtered }),
         }).catch(() => {});
       }
-    } catch (err) {
-      console.error('Search failed:', err);
+    } catch (error) {
+      console.error('Search failed:', error);
+      setError('Failed to search. The Google Maps API key might be missing, invalid, or missing the Places API scope.');
     } finally {
       setLoading(false);
     }
@@ -215,6 +221,12 @@ function ExploreContent() {
         />
         <FilterPanel filters={filters} onFiltersChange={setFilters} />
       </div>
+
+      {error && (
+        <div style={{ margin: '0 var(--space-4)', padding: 'var(--space-3)', background: 'var(--color-error-bg)', color: 'var(--color-error)', borderRadius: 'var(--radius-md)', fontSize: 'var(--text-sm)', border: '1px solid rgba(220, 38, 38, 0.2)' }}>
+          {error}
+        </div>
+      )}
 
       <div className={styles.toggleBar}>
         <button

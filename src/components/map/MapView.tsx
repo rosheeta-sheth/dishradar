@@ -33,6 +33,24 @@ export default function MapView({ restaurants, selectedId, onSelectRestaurant, c
 
   return (
     <div className={styles.container}>
+      <div className={styles.legend}>
+        <div className={styles.legendItem}>
+          <span className={styles.legendColor} style={{ background: '#EF4444', border: '1px solid #B91C1C' }}></span>
+          <span>Very Busy</span>
+        </div>
+        <div className={styles.legendItem}>
+          <span className={styles.legendColor} style={{ background: '#22C55E', border: '1px solid #15803D' }}></span>
+          <span>Quiet</span>
+        </div>
+        <div className={styles.legendItem}>
+          <span className={styles.legendColor} style={{ background: '#8B5CF6', border: '1px solid #7C3AED' }}></span>
+          <span>Exceptional (4.5+ ★)</span>
+        </div>
+        <div className={styles.legendItem}>
+          <span className={styles.legendColor} style={{ background: '#3B82F6', border: '1px solid #2563EB' }}></span>
+          <span>Great (4.0+ ★)</span>
+        </div>
+      </div>
       <Map
         mapId={process.env.NEXT_PUBLIC_GOOGLE_MAP_ID || 'DEMO_MAP_ID'}
         defaultCenter={center}
