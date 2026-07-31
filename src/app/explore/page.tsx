@@ -119,7 +119,7 @@ function ExploreContent() {
         includedType: 'restaurant',
         fields: ['displayName', 'location', 'rating', 'priceLevel', 'photos', 'id', 'formattedAddress', 'regularOpeningHours'],
         maxResultCount: 20,
-        locationRestriction: new google.maps.Circle({
+        locationBias: new google.maps.Circle({
           center: center,
           radius: filters.radius || SEARCH_RADIUS_DEFAULT,
         }).getBounds() || undefined,
