@@ -13,6 +13,7 @@ interface MapViewProps {
   onSelectRestaurant: (r: Restaurant) => void;
   center: { lat: number; lng: number };
   zoom: number;
+  onCenterChange?: (center: { lat: number; lng: number }) => void;
 }
 
 function getPinColor(rating: number | null): { bg: string; border: string } {
@@ -22,14 +23,10 @@ function getPinColor(rating: number | null): { bg: string; border: string } {
   return { bg: '#94A3B8', border: '#64748B' };
 }
 
-export default function MapView({ restaurants, selectedId, onSelectRestaurant, center, zoom }: MapViewProps) {
+export default function MapView({ restaurants, selectedId, onSelectRestaurant, center, zoom, onCenterChange }: MapViewProps) {
   const map = useMap();
 
-  useEffect(() => {
-    if (map && center) {
-      map.panTo(center);
-    }
-  }, [map, center]);
+  // Map center is now controlled via the 'center' prop on the Map component
 
   return (
     <div className={styles.container}>
@@ -49,12 +46,17 @@ export default function MapView({ restaurants, selectedId, onSelectRestaurant, c
       </div>
       <Map
         mapId={process.env.NEXT_PUBLIC_GOOGLE_MAP_ID || 'DEMO_MAP_ID'}
-        defaultCenter={center}
+        center={center}
         defaultZoom={zoom}
         style={{ width: '100%', height: '100%' }}
         gestureHandling="greedy"
         disableDefaultUI={true}
         internalUsageAttributionIds={[GMP_ATTRIBUTION_ID]}
+        onCameraChanged={(ev) => {
+          if (onCenterChange && ev.detail.center) {
+            onCenterChange(ev.detail.center);
+          }
+        }}
       >
         {restaurants.map((r) => {
           const busyness = simulateBusyness(r.place_id);

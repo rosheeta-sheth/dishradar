@@ -64,6 +64,20 @@ function ExploreContent() {
 
   // Get user location
   useEffect(() => {
+    const fallbackToIP = async () => {
+      try {
+        const res = await fetch('https://ipapi.co/json/');
+        const data = await res.json();
+        if (data.latitude && data.longitude) {
+          const loc = { lat: data.latitude, lng: data.longitude };
+          setUserLocation(loc);
+          setCenter(loc);
+        }
+      } catch (e) {
+        console.warn('IP location fallback failed.');
+      }
+    };
+
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition(
         (pos) => {
@@ -71,8 +85,13 @@ function ExploreContent() {
           setUserLocation(loc);
           setCenter(loc);
         },
-        () => { /* Permission denied — use default center */ }
+        () => {
+          fallbackToIP();
+        },
+        { enableHighAccuracy: false, timeout: 5000, maximumAge: Infinity }
       );
+    } else {
+      fallbackToIP();
     }
   }, []);
 
@@ -308,6 +327,7 @@ function ExploreContent() {
               onSelectRestaurant={setSelectedRestaurant}
               center={center}
               zoom={DEFAULT_ZOOM}
+              onCenterChange={setCenter}
             />
             {selectedRestaurant && (() => {
               const selectedIdx = restaurants.findIndex(r => r.place_id === selectedRestaurant.place_id);
