@@ -258,15 +258,27 @@ function ExploreContent() {
               center={center}
               zoom={DEFAULT_ZOOM}
             />
-            {selectedRestaurant && (
-              <div className={styles.summaryOverlay}>
-                <SummaryCard
-                  restaurant={selectedRestaurant}
-                  userLocation={userLocation}
-                  onClose={() => setSelectedRestaurant(null)}
-                />
-              </div>
-            )}
+            {selectedRestaurant && (() => {
+              const selectedIdx = restaurants.findIndex(r => r.place_id === selectedRestaurant.place_id);
+              const handleNext = selectedIdx >= 0 && selectedIdx < restaurants.length - 1 
+                ? () => setSelectedRestaurant(restaurants[selectedIdx + 1]) 
+                : undefined;
+              const handlePrev = selectedIdx > 0 
+                ? () => setSelectedRestaurant(restaurants[selectedIdx - 1]) 
+                : undefined;
+              
+              return (
+                <div className={styles.summaryOverlay}>
+                  <SummaryCard
+                    restaurant={selectedRestaurant}
+                    userLocation={userLocation}
+                    onClose={() => setSelectedRestaurant(null)}
+                    onNext={handleNext}
+                    onPrev={handlePrev}
+                  />
+                </div>
+              );
+            })()}
           </div>
         ) : (
           <div className={styles.listContainer}>

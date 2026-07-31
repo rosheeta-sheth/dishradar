@@ -176,8 +176,18 @@ export default function OnboardingPage() {
   }
 
   const isVegetarian = state.dietary_restrictions.includes('Vegetarian') || state.dietary_restrictions.includes('Vegan');
+  const dislikedTokens = state.disliked_ingredients
+    .toLowerCase()
+    .split(',')
+    .map(s => s.trim())
+    .filter(Boolean);
+
   const filteredPairs = ALL_COMPARATIVE_PAIRS.filter(pair => {
     if (isVegetarian && pair.tags.includes('meat')) return false;
+    
+    const pairText = `${pair.a} ${pair.b}`.toLowerCase();
+    if (dislikedTokens.some(token => pairText.includes(token))) return false;
+
     return true;
   }).slice(0, 10);
 
@@ -239,7 +249,7 @@ export default function OnboardingPage() {
               </div>
               <input
                 type="range"
-                min={1}
+                min={0}
                 max={10}
                 value={state.spice_level}
                 onChange={e => updateState({ spice_level: parseInt(e.target.value) })}

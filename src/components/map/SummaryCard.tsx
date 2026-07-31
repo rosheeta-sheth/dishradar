@@ -3,16 +3,18 @@
 import Link from 'next/link';
 import { getDistanceMeters, formatDistance, formatPriceLevel } from '@/lib/utils';
 import type { Restaurant } from '@/lib/types';
-import { Star } from 'lucide-react';
+import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import styles from './SummaryCard.module.css';
 
 interface SummaryCardProps {
   restaurant: Restaurant;
   userLocation: { lat: number; lng: number } | null;
   onClose: () => void;
+  onNext?: () => void;
+  onPrev?: () => void;
 }
 
-export default function SummaryCard({ restaurant, userLocation, onClose }: SummaryCardProps) {
+export default function SummaryCard({ restaurant, userLocation, onClose, onNext, onPrev }: SummaryCardProps) {
   const distance = userLocation
     ? formatDistance(getDistanceMeters(userLocation.lat, userLocation.lng, restaurant.lat, restaurant.lng))
     : null;
@@ -20,6 +22,8 @@ export default function SummaryCard({ restaurant, userLocation, onClose }: Summa
   return (
     <div className={styles.card}>
       <button className={styles.close} onClick={onClose}>✕</button>
+      {onPrev && <button className={`${styles.navBtn} ${styles.prevBtn}`} onClick={onPrev} aria-label="Previous"><ChevronLeft size={20} /></button>}
+      {onNext && <button className={`${styles.navBtn} ${styles.nextBtn}`} onClick={onNext} aria-label="Next"><ChevronRight size={20} /></button>}
       <div className={styles.body}>
         {restaurant.photo_urls?.[0] && (
           <div className={styles.photo}>
