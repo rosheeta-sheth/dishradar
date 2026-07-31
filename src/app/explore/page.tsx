@@ -56,6 +56,7 @@ function ExploreContent() {
   const [chatQuery, setChatQuery] = useState('');
   const [chatHistory, setChatHistory] = useState<{role: 'user' | 'ai', text: string}[]>([]);
   const chatDraggableRef = useRef<HTMLDivElement>(null);
+  const hasAutoSearchedLocation = useRef(false);
 
   const map = useMap();
   const placesLib = useMapsLibrary('places');
@@ -226,6 +227,14 @@ function ExploreContent() {
       Promise.resolve().then(() => handleSearch());
     }
   }, [placesLib, filters.cuisine, filters.dietary, filters.radius, filters.minRating, filters.maxPriceLevel, filters.openNow, filters.sortBy]); // Removed handleSearch from deps to avoid infinite loops if center updates
+
+  // Re-run search automatically once when user location is found
+  useEffect(() => {
+    if (placesLib && userLocation && !hasAutoSearchedLocation.current) {
+      hasAutoSearchedLocation.current = true;
+      handleSearch(userLocation);
+    }
+  }, [placesLib, userLocation]); // Intentionally omit handleSearch to avoid loops
 
   const handleChatSubmit = (e: React.FormEvent) => {
     e.preventDefault();
