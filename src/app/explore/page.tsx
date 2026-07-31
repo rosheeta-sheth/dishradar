@@ -119,12 +119,10 @@ function ExploreContent() {
         includedType: 'restaurant',
         fields: ['displayName', 'location', 'rating', 'priceLevel', 'photos', 'id', 'formattedAddress', 'regularOpeningHours'],
         maxResultCount: 20,
-        ...(userLocation && {
-          locationRestriction: new google.maps.Circle({
-            center: userLocation,
-            radius: filters.radius || SEARCH_RADIUS_DEFAULT,
-          }).getBounds() || undefined,
-        }),
+        locationRestriction: new google.maps.Circle({
+          center: center,
+          radius: filters.radius || SEARCH_RADIUS_DEFAULT,
+        }).getBounds() || undefined,
       };
 
       const { places } = await Place.searchByText(request);
