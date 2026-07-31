@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback, Suspense } from 'react';
+import { useState, useEffect, useCallback, Suspense, useRef } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { APIProvider, useMap, useMapsLibrary } from '@vis.gl/react-google-maps';
 import MapView from '@/components/map/MapView';
@@ -54,6 +54,7 @@ function ExploreContent() {
   const [chatMinimized, setChatMinimized] = useState(false);
   const [chatQuery, setChatQuery] = useState('');
   const [chatHistory, setChatHistory] = useState<{role: 'user' | 'ai', text: string}[]>([]);
+  const chatDraggableRef = useRef<HTMLDivElement>(null);
 
   const map = useMap();
   const placesLib = useMapsLibrary('places');
@@ -305,8 +306,8 @@ function ExploreContent() {
         )}
       </div>
 
-      <Draggable handle=".chat-drag-handle" bounds="body">
-        <div className={styles.chatContainer}>
+      <Draggable nodeRef={chatDraggableRef} handle=".chat-drag-handle" bounds="body">
+        <div ref={chatDraggableRef} className={styles.chatContainer}>
           {chatOpen && (
             <div className={`${styles.chatWindow} ${chatMinimized ? styles.chatWindowMinimized : ''}`}>
               <div className={`${styles.chatHeader} chat-drag-handle`} style={{ cursor: 'grab' }}>
