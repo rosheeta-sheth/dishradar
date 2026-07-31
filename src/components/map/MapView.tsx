@@ -57,7 +57,7 @@ export default function MapView({ restaurants, selectedId, onSelectRestaurant, c
         defaultZoom={zoom}
         style={{ width: '100%', height: '100%' }}
         gestureHandling="greedy"
-        disableDefaultUI={false}
+        disableDefaultUI={true}
         internalUsageAttributionIds={[GMP_ATTRIBUTION_ID]}
       >
         {restaurants.map((r) => {
