@@ -40,6 +40,7 @@ function ExploreContent() {
   };
 
   const [query, setQuery] = useState(initialQuery);
+  const [cityQuery, setCityQuery] = useState('');
   const [filters, setFilters] = useState<SearchFilters>(initialFilters);
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
   const [selectedRestaurant, setSelectedRestaurant] = useState<Restaurant | null>(null);
@@ -58,6 +59,7 @@ function ExploreContent() {
 
   const map = useMap();
   const placesLib = useMapsLibrary('places');
+  const geocodingLib = useMapsLibrary('geocoding');
 
   // Get user location
   useEffect(() => {
@@ -91,7 +93,7 @@ function ExploreContent() {
     router.replace(newUrl, { scroll: false });
   }, [query, filters, router]);
 
-  const handleSearch = useCallback(async () => {
+  const handleSearch = useCallback(async (overrideCenter?: {lat: number, lng: number}) => {
     if (!placesLib) {
       setError('Google Maps is still loading or API key is missing. Please check your configuration.');
       return;
@@ -120,7 +122,7 @@ function ExploreContent() {
         fields: ['displayName', 'location', 'rating', 'priceLevel', 'photos', 'id', 'formattedAddress', 'regularOpeningHours'],
         maxResultCount: 20,
         locationBias: new google.maps.Circle({
-          center: center,
+          center: overrideCenter || center,
           radius: filters.radius || SEARCH_RADIUS_DEFAULT,
         }).getBounds() || undefined,
       };
@@ -186,14 +188,33 @@ function ExploreContent() {
     } finally {
       setLoading(false);
     }
-  }, [placesLib, query, filters, userLocation, map]);
+  }, [placesLib, query, filters, center, map, userLocation]);
+
+  const handleCitySearch = useCallback(async () => {
+    if (!cityQuery.trim() || !geocodingLib) return;
+    const geocoder = new geocodingLib.Geocoder();
+    try {
+      const res = await geocoder.geocode({ address: cityQuery });
+      if (res.results.length > 0) {
+        const loc = res.results[0].geometry.location;
+        const newCenter = { lat: loc.lat(), lng: loc.lng() };
+        setCenter(newCenter);
+        // Map will automatically pan due to the useEffect watching center
+        handleSearch(newCenter); 
+      } else {
+        setError("Could not find that city. Please try again.");
+      }
+    } catch (e) {
+      setError("Could not find that city. Please try again.");
+    }
+  }, [cityQuery, geocodingLib, handleSearch]);
 
   // Run initial search if there's an initial query or any active filters, or just run it to show default restaurants
   useEffect(() => {
     if (placesLib) {
       Promise.resolve().then(() => handleSearch());
     }
-  }, [placesLib, filters.cuisine, filters.dietary, filters.radius, filters.minRating, filters.maxPriceLevel, filters.openNow, filters.sortBy, handleSearch]); // Re-run when filters change
+  }, [placesLib, filters.cuisine, filters.dietary, filters.radius, filters.minRating, filters.maxPriceLevel, filters.openNow, filters.sortBy]); // Removed handleSearch from deps to avoid infinite loops if center updates
 
   const handleChatSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -213,12 +234,24 @@ function ExploreContent() {
   return (
     <div className={styles.page}>
       <div className={styles.controls}>
-        <SearchBar
-          value={query}
-          onChange={setQuery}
-          onSearch={handleSearch}
-          placeholder='Search restaurants, cuisines, or dishes...'
-        />
+        <div style={{ display: 'flex', gap: '8px' }}>
+          <div style={{ flex: 1 }}>
+            <SearchBar
+              value={query}
+              onChange={setQuery}
+              onSearch={() => handleSearch()}
+              placeholder='What are you craving?'
+            />
+          </div>
+          <div style={{ flex: 1 }}>
+            <SearchBar
+              value={cityQuery}
+              onChange={setCityQuery}
+              onSearch={handleCitySearch}
+              placeholder='Where? (e.g. Chicago)'
+            />
+          </div>
+        </div>
         <FilterPanel filters={filters} onFiltersChange={setFilters} />
       </div>
 
